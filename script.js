@@ -15,6 +15,9 @@ let arrayOfImages = [
   "https://cdn.pixabay.com/photo/2017/11/01/22/10/nutria-2909569_960_720.jpg",
   "https://cdn.pixabay.com/photo/2015/10/01/20/28/animal-967657_960_720.jpg",
   "https://cdn.pixabay.com/photo/2017/01/20/20/02/seal-1995811_960_720.jpg",
+  "https://images.pexels.com/photos/13765828/pexels-photo-13765828.jpeg",
+  "https://images.pexels.com/photos/11870767/pexels-photo-11870767.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  "https://images.pexels.com/photos/7179718/pexels-photo-7179718.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
 ];
 let youSure = [
   "https://cdn.pixabay.com/photo/2016/03/03/22/15/seal-1235138_960_720.jpg",
@@ -23,3 +26,33 @@ let youSure = [
 //anzahl der Spieler + punkte → "turn is over...its player x turn"
 //array rng bilder + rng posi
 //aus dem hoover noch ein klick machen, wenn man ne karte anklickt, dass die sich dreht
+//wenn 2 gleich = bleiben, 2 unterschiedlich = wieder zurück drehen
+
+const boardField = document.querySelector(".board");
+const cardback = document.querySelector(".back");
+const cardItem = document.querySelector(".card");
+const cardfront = document.querySelector(".front");
+
+boardField.addEventListener("click", boardHandler);
+
+function boardHandler(e) {
+  // console.log(e);
+  //   console.log(e.target.parentElement);
+  //   console.log(e.target.className)
+
+  if (e.target.className === "back") {
+    // Turn it to front AUFDECKEN
+    e.target.parentElement.classList.toggle("turn");
+    /*if (true) {
+        check ob 2 da sind, wenn ja DANN ..oder deck zweite auf
+    } */
+  } else if (e.target.localName === "img") {
+    //This is front ZUDECKEN
+    // console.log("Uff", e.target.parentElement.parentElement)
+    e.target.parentElement.parentElement.classList.toggle("turn");
+  }
+}
+/*function checkDoubles(){
+true= keine twins / false = twins
+    return true ||false
+ };*/
