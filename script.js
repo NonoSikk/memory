@@ -89,12 +89,12 @@ let horrorMode =
 //array rng bilder + rng posi
 //btn für restart
 
-
 // ==== Global Variables ====
 const boardField = document.querySelector(".board");
 const cardback = document.querySelector(".back");
 const cardItem = document.querySelector(".card");
 const cardfront = document.querySelector(".front");
+const btnNewGame = document.querySelector("#reset");
 let imgNameForDoubleCheck = "";
 let last2Cards = [];
 let playerMadeChoice = false;
@@ -113,18 +113,20 @@ function boardHandler(e) {
 
     if (cardBackSide === "back") {
       const imgName = e.target.nextElementSibling.children[0].alt;
-
+      console.log(card, boardField.childNodes[1].classList);
       // Turn it to front AUFDECKEN
       card.toggle("turn");
       last2Cards.push(card);
       checkDoubles(imgName);
     }
-  } else if (playerMadeChoice === true) { //For unlocking if player is intensiv "clicker"
+  } else if (playerMadeChoice === true) {
+    //For unlocking if player is intensiv "clicker"
     setTimeout(() => {
       playerMadeChoice = false;
     }, 1000);
   }
 }
+
 function checkDoubles(imgName) {
   if (imgNameForDoubleCheck === "") {
     //Check if this is first Card
@@ -137,13 +139,14 @@ function checkDoubles(imgName) {
     playerMadeChoice = false;
   } else {
     imgNameForDoubleCheck = "";
-    turnCards(); // Hier function to turn all "turned" cards
+    turnCards();
   }
 }
 function turnCards() {
   // die letzten 2 Karten  lastClick.checked = false;
   last2Cards.forEach((card) => {
-    setTimeout(() => { //Delayed action to show player its choice
+    setTimeout(() => {
+      //Delayed action to show player its choice
       card.toggle("turn");
       playerMadeChoice = false;
     }, 1000);
@@ -160,3 +163,27 @@ function turn(event) {
 checkDoubles = fail
   last2Cards = umdrehen;
 }*/
+
+btnNewGame.addEventListener("click", startNewGame);
+
+function startNewGame() {
+  imgNameForDoubleCheck = "";
+  last2Cards = [];
+  playerMadeChoice = false;
+  for (let i = 0; i < boardField.childNodes.length - 1; i++) {
+    boardField.childNodes[1].classList.remove("turn");
+  }
+  /* boardField.childNodes.forEach((card) => {
+    // console.log(card.classList)
+    return card.classList.toggle("turn");
+  }); */
+}
+/* function delToDo() {
+  let newList = [];
+  todos.filter((todo) => {
+    if (todo.done === false) {
+      newList.push(todo);
+    }
+    todos = newList;
+    render();
+  }); */
