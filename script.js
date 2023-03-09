@@ -1,27 +1,89 @@
 let arrayOfImages = [
-  "https://cdn.pixabay.com/photo/2016/10/21/14/46/fox-1758183_960_720.jpg",
-  "https://cdn.pixabay.com/photo/2016/11/23/13/15/red-panda-1852789_960_720.jpg",
-  "https://cdn.pixabay.com/photo/2020/05/07/16/14/owl-5142121_960_720.jpg",
-  "https://cdn.pixabay.com/photo/2018/01/09/11/04/dog-3071334_960_720.jpg",
-  "https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_960_720.jpg",
-  "https://cdn.pixabay.com/photo/2018/02/21/05/17/cat-3169476_960_720.jpg",
-  "https://cdn.pixabay.com/photo/2015/02/25/17/56/cat-649164_960_720.jpg",
-  "https://cdn.pixabay.com/photo/2017/07/25/01/22/cat-2536662_960_720.jpg",
-  "https://cdn.pixabay.com/photo/2019/05/08/21/21/cat-4189697_960_720.jpg",
-  "https://cdn.pixabay.com/photo/2020/12/25/09/46/dog-5858985_960_720.jpg",
-  "https://cdn.pixabay.com/photo/2022/07/18/19/57/dog-7330712_960_720.jpg",
-  "https://cdn.pixabay.com/photo/2021/11/27/16/25/animal-6828453_960_720.jpg",
-  "https://cdn.pixabay.com/photo/2014/09/10/17/44/rat-440987_960_720.jpg",
-  "https://cdn.pixabay.com/photo/2017/11/01/22/10/nutria-2909569_960_720.jpg",
-  "https://cdn.pixabay.com/photo/2015/10/01/20/28/animal-967657_960_720.jpg",
-  "https://cdn.pixabay.com/photo/2017/01/20/20/02/seal-1995811_960_720.jpg",
-  "https://images.pexels.com/photos/13765828/pexels-photo-13765828.jpeg",
-  "https://images.pexels.com/photos/11870767/pexels-photo-11870767.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/7179718/pexels-photo-7179718.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  {
+    src: "https://images.pexels.com/photos/271932/pexels-photo-271932.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    alt: "sleeping_fox",
+  },
+  {
+    src: "https://images.pexels.com/photos/3075556/pexels-photo-3075556.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    alt: "squirrel",
+  },
+  {
+    src: "https://images.pexels.com/photos/4681107/pexels-photo-4681107.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    alt: "husky",
+  },
+  {
+    src: "https://images.pexels.com/photos/13765828/pexels-photo-13765828.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    alt: "otter",
+  },
+  {
+    src: "https://images.pexels.com/photos/1525606/pexels-photo-1525606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    alt: "seal",
+  },
+  {
+    src: "https://images.pexels.com/photos/1564839/pexels-photo-1564839.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    alt: "owl",
+  },
+  {
+    src: "https://images.pexels.com/photos/7390942/pexels-photo-7390942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    alt: "beaver",
+  },
+  {
+    src: "https://images.pexels.com/photos/2173872/pexels-photo-2173872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    alt: "cat_net",
+  },
+  {
+    src: "https://images.pexels.com/photos/866496/pexels-photo-866496.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    alt: "cat_grey",
+  },
+  {
+    src: "https://images.pexels.com/photos/416160/pexels-photo-416160.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    alt: "cat_sleep",
+  },
+  {
+    src: "https://images.pexels.com/photos/51340/rat-pets-eat-51340.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    alt: "eating_rat",
+  },
+  {
+    src: "https://images.pexels.com/photos/4052861/pexels-photo-4052861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    alt: "mouse",
+  },
+  {
+    src: "https://cdn.pixabay.com/photo/2014/09/10/17/44/rat-440987_960_720.jpg",
+    alt: "rat",
+  },
+  {
+    src: "https://images.pexels.com/photos/12025705/pexels-photo-12025705.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    alt: "nutria",
+  },
+  {
+    src: "https://images.pexels.com/photos/50577/hedgehog-animal-baby-cute-50577.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    alt: "hedgehog",
+  },
+  {
+    src: "https://images.pexels.com/photos/1805164/pexels-photo-1805164.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    alt: "doggy",
+  },
+
+  {
+    src: "https://images.pexels.com/photos/11870767/pexels-photo-11870767.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    alt: "otteer",
+  },
+  {
+    src: "http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcRvwWpbeu3Moa1Ub6fqv5RHe0oTMS6d1yZaMPixuZYRuyM0aCDONeGLF9m_9pZXchYLn4PuajIuU4XWjyTRjmA",
+    alt: "sleepy_ferret",
+  },
+  {
+    src: "https://images.pexels.com/photos/7179718/pexels-photo-7179718.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    alt: "ferret",
+  },
 ];
 let youSure = [
-  "https://cdn.pixabay.com/photo/2016/03/03/22/15/seal-1235138_960_720.jpg",
+  "https://images.pexels.com/photos/3196887/pexels-photo-3196887.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
 ];
+let cuteMode =
+  "https://images.pexels.com/photos/1526410/pexels-photo-1526410.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+let horrorMode =
+  "https://images.pexels.com/photos/673862/pexels-photo-673862.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 // array + dropbox → Thema aussuchen ob tiere oder grusel ,...
 //anzahl der Spieler + punkte → "turn is over...its player x turn"
 //array rng bilder + rng posi
@@ -36,20 +98,22 @@ const cardfront = document.querySelector(".front");
 boardField.addEventListener("click", boardHandler);
 
 function boardHandler(e) {
-  // console.log(e);
-  //   console.log(e.target.parentElement);
-  //   console.log(e.target.className)
-
-  if (e.target.className === "back") {
+  const cardBackSide = e.target.className;
+  const imgElement = e.target.localName;
+  const card = e.target.parentElement.classList;
+  const cardFromImg = e.target.parentElement.parentElement.classList;
+  if (cardBackSide === "back") {
+    console.log(e);
     // Turn it to front AUFDECKEN
-    e.target.parentElement.classList.toggle("turn");
+    card.toggle("turn");
+
     /*if (true) {
         check ob 2 da sind, wenn ja DANN ..oder deck zweite auf
     } */
-  } else if (e.target.localName === "img") {
+  } else if (imgElement === "img") {
     //This is front ZUDECKEN
     // console.log("Uff", e.target.parentElement.parentElement)
-    e.target.parentElement.parentElement.classList.toggle("turn");
+    cardFromImg.toggle("turn");
   }
 }
 /*function checkDoubles(){
