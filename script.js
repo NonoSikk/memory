@@ -87,36 +87,76 @@ let horrorMode =
 // array + dropbox → Thema aussuchen ob tiere oder grusel ,...
 //anzahl der Spieler + punkte → "turn is over...its player x turn"
 //array rng bilder + rng posi
-//aus dem hoover noch ein klick machen, wenn man ne karte anklickt, dass die sich dreht
-//wenn 2 gleich = bleiben, 2 unterschiedlich = wieder zurück drehen
+//btn für restart
 
+
+// ==== Global Variables ====
 const boardField = document.querySelector(".board");
 const cardback = document.querySelector(".back");
 const cardItem = document.querySelector(".card");
 const cardfront = document.querySelector(".front");
+let imgNameForDoubleCheck = "";
+let last2Cards = [];
+let playerMadeChoice = false;
+// ==== End of: Global Variables ====
 
 boardField.addEventListener("click", boardHandler);
 
 function boardHandler(e) {
-  const cardBackSide = e.target.className;
-  const imgElement = e.target.localName;
-  const card = e.target.parentElement.classList;
-  const cardFromImg = e.target.parentElement.parentElement.classList;
-  if (cardBackSide === "back") {
-    console.log(e);
-    // Turn it to front AUFDECKEN
-    card.toggle("turn");
+  if (playerMadeChoice === false) {
+    playerMadeChoice = true;
 
-    /*if (true) {
-        check ob 2 da sind, wenn ja DANN ..oder deck zweite auf
-    } */
-  } else if (imgElement === "img") {
-    //This is front ZUDECKEN
-    // console.log("Uff", e.target.parentElement.parentElement)
-    cardFromImg.toggle("turn");
+    const cardBackSide = e.target.className;
+    const imgElement = e.target.localName;
+    const card = e.target.parentElement.classList;
+    const cardFromImg = e.target.parentElement.parentElement.classList;
+
+    if (cardBackSide === "back") {
+      const imgName = e.target.nextElementSibling.children[0].alt;
+
+      // Turn it to front AUFDECKEN
+      card.toggle("turn");
+      last2Cards.push(card);
+      checkDoubles(imgName);
+    }
+  } else if (playerMadeChoice === true) { //For unlocking if player is intensiv "clicker"
+    setTimeout(() => {
+      playerMadeChoice = false;
+    }, 1000);
   }
 }
-/*function checkDoubles(){
-true= keine twins / false = twins
-    return true ||false
- };*/
+function checkDoubles(imgName) {
+  if (imgNameForDoubleCheck === "") {
+    //Check if this is first Card
+    imgNameForDoubleCheck = imgName; //Yes, then save it for double check
+    playerMadeChoice = false;
+  } else if (imgName === imgNameForDoubleCheck) {
+    //Card has a double, then clear Checkers
+    imgNameForDoubleCheck = "";
+    last2Cards = [];
+    playerMadeChoice = false;
+  } else {
+    imgNameForDoubleCheck = "";
+    turnCards(); // Hier function to turn all "turned" cards
+  }
+}
+function turnCards() {
+  // die letzten 2 Karten  lastClick.checked = false;
+  last2Cards.forEach((card) => {
+    setTimeout(() => { //Delayed action to show player its choice
+      card.toggle("turn");
+      playerMadeChoice = false;
+    }, 1000);
+    last2Cards = [];
+  });
+}
+/* let lastCard;
+
+function turn(event) {
+  const cards = event.target;
+  if (alt === alt) {
+    aufgedeckt bleiben ;
+  }
+checkDoubles = fail
+  last2Cards = umdrehen;
+}*/
