@@ -87,7 +87,8 @@ let horrorMode =
 // array + dropbox → Thema aussuchen ob tiere oder grusel ,...
 //anzahl der Spieler + punkte → "turn is over...its player x turn"
 //array rng bilder + rng posi
-//btn für restart
+// misch btn für nachm match
+//chaos mode, misch btn nach jedem Zug eines spieler
 
 // ==== Global Variables ====
 const boardField = document.querySelector(".board");
@@ -105,7 +106,7 @@ boardField.addEventListener("click", boardHandler);
 function boardHandler(e) {
   if (playerMadeChoice === false) {
     playerMadeChoice = true;
-
+    console.log(e);
     const cardBackSide = e.target.className;
     const imgElement = e.target.localName;
     const card = e.target.parentElement.classList;
@@ -169,21 +170,74 @@ btnNewGame.addEventListener("click", startNewGame);
 function startNewGame() {
   imgNameForDoubleCheck = "";
   last2Cards = [];
-  playerMadeChoice = false;
-  for (let i = 0; i < boardField.childNodes.length - 1; i++) {
-    boardField.childNodes[1].classList.remove("turn");
-  }
-  /* boardField.childNodes.forEach((card) => {
-    // console.log(card.classList)
-    return card.classList.toggle("turn");
-  }); */
-}
-/* function delToDo() {
-  let newList = [];
-  todos.filter((todo) => {
-    if (todo.done === false) {
-      newList.push(todo);
+  playerMadeChoice = false; //refactoring needed ..
+  const arr = Array.from(boardField.childNodes); //Turn fake Array into true Array
+  const divArr = [];
+  arr.filter((div) => {
+    if (div.nodeName === "DIV") {
+      div.classList.remove("turn");
+      divArr.push(div);
     }
-    todos = newList;
-    render();
-  }); */
+  });
+  mixingCards(divArr);
+}
+function mixingCards(divArr) {
+  //div 1-16 mixen
+
+  randomize(divArr);
+}
+
+function randomize(cardDeck) {
+  // for schleife für shuffle
+  // variable zum speichern der einzelnen Karte
+  // rausholen einer zufälligen karte
+  // einfügen der gespeicherten Karte im selben Array
+  const maxRandomNumber = cardDeck.length;
+
+  /*   for(let i = 0; i < cardDeck.length; i++){
+    let takeCard = "";
+    takeCard = cardDeck.splice(randomNumber(maxRandomNumber), 0)
+    console.log(takeCard)
+  } */
+  let myArray = cardDeck;
+  // console.log(myArray)
+  for(let i = 0; i < maxRandomNumber; i++) {
+
+    let switchOne = randomizeNumber(maxRandomNumber);
+    let switchTwo = randomizeNumber(maxRandomNumber);
+
+    [myArray[switchOne], myArray[switchTwo]] = [
+      myArray[switchTwo],
+      myArray[switchOne],
+    ];
+  }
+  cleaningArrays(myArray);
+  console.log(myArray);
+}
+
+function randomizeNumber(maxNumber) {
+  return Math.floor(Math.random() * maxNumber);
+}
+
+function cleaningArrays(myArray) {
+/*   boardField.textContent = "";
+  const fragement = new DocumentFragment();
+
+  myArray.forEach((div) => {
+    const divEl = document.createElement(div);
+    fragement.append(divEL);
+  })
+  boardField.append(fragement); */
+}
+
+
+
+/* const parent = document.getElementById('parent');
+const childNodesArray = Array.from(parent.childNodes);
+
+const fragment = document.createDocumentFragment();
+for (const node of childNodesArray) {
+  fragment.appendChild(node);
+}
+
+parent.appendChild(fragment); */
