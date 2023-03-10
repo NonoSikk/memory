@@ -114,7 +114,6 @@ function boardHandler(e) {
 
     if (cardBackSide === "back") {
       const imgName = e.target.nextElementSibling.children[0].alt;
-      console.log(card, boardField.childNodes[1].classList);
       // Turn it to front AUFDECKEN
       card.toggle("turn");
       last2Cards.push(card);
@@ -212,7 +211,7 @@ function randomize(cardDeck) {
     ];
   }
   cleaningArrays(myArray);
-  console.log(myArray);
+  // console.log(myArray);
 }
 
 function randomizeNumber(maxNumber) {
@@ -220,7 +219,12 @@ function randomizeNumber(maxNumber) {
 }
 
 function cleaningArrays(myArray) {
-/*   boardField.textContent = "";
+  boardField.textContent = "";
+  for (let i = 0; i < myArray.length; i++){
+    boardField.append(myArray[i])
+  }
+}
+/*   
   const fragement = new DocumentFragment();
 
   myArray.forEach((div) => {
@@ -228,7 +232,6 @@ function cleaningArrays(myArray) {
     fragement.append(divEL);
   })
   boardField.append(fragement); */
-}
 
 
 
