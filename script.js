@@ -77,13 +77,66 @@ let arrayOfImages = [
     alt: "ferret",
   },
 ];
+let cuteMode =
+"https://images.pexels.com/photos/1526410/pexels-photo-1526410.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 let youSure = [
   "https://images.pexels.com/photos/3196887/pexels-photo-3196887.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
 ];
-let cuteMode =
-  "https://images.pexels.com/photos/1526410/pexels-photo-1526410.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
-let horrorMode =
-  "https://images.pexels.com/photos/673862/pexels-photo-673862.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+
+let arrayofHorror = [ 
+  {
+    src: "https://p1.pxfuel.com/preview/678/382/320/zombie-horror-undead-monster.jpg",
+    alt: "bloddy-mouth",
+  },
+  {
+    src: "https://p1.pxfuel.com/preview/883/770/343/fantasy-fog-creepy-mystical.jpg",
+    alt: "dusk-creature",
+  },
+  {
+    src: "https://p0.pxfuel.com/preview/470/342/475/scary-photo-manipulation-horror-creepy.jpg",
+    alt: "dusk-stairs",
+  },
+  {
+    src: "https://p1.pxfuel.com/preview/712/840/884/bomarzo-forest-monsters-viterbo.jpg",
+    alt: "face-cave",
+  },
+  {
+    src: "https://p1.pxfuel.com/preview/91/145/160/photoshop-manipulation-digital-art-night-dark.jpg",
+    alt: "black-eyes",
+  },
+  {
+    src: "https://p1.pxfuel.com/preview/585/158/417/horror-horror-doll-horror-girl-horror-clown-killer-clown-doll.jpg",
+    alt: "bloody-doll",
+  },
+  {
+    src: "https://p1.pxfuel.com/preview/465/265/207/halloween-horror-scary-creepy.jpg",
+    alt: "pumkin-mask",
+  },
+  {
+    src: "https://p0.pxfuel.com/preview/706/237/261/the-nun-film-horror-nun.jpg",
+    alt: "weird-nun",
+  },
+  {
+    src: "https://p1.pxfuel.com/preview/454/222/402/grim-reaper-horror-death-spooky.jpg",
+    alt: "spooky-reaper",
+  },
+  {
+    src: "https://p1.pxfuel.com/preview/541/1021/317/joker-joker-movie-movie-superhero-comics-character.jpg",
+    alt: "the-joker",
+  },
+  {
+    src: "https://p1.pxfuel.com/preview/420/535/698/people-halloween-people.jpg",
+    alt: "zipper-mouth",
+  },
+  {
+    src: "https://p1.pxfuel.com/preview/844/598/352/weird-frightening-halloween-fear-horror-clown.jpg",
+    alt: "it",
+  },
+];
+
+let horrorMode = 
+"https://images.pexels.com/photos/673862/pexels-photo-673862.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+
 // array + dropbox → Thema aussuchen ob tiere oder grusel ,...
 //anzahl der Spieler + punkte → "turn is over...its player x turn"
 //array rng bilder + rng posi
@@ -100,6 +153,10 @@ let imgNameForDoubleCheck = "";
 let last2Cards = [];
 let playerMadeChoice = false;
 // ==== End of: Global Variables ====
+
+// ==== Start: Area for calling Functions ====
+startNewGame()
+// ==== Ende: Area for calling Functions ====
 
 boardField.addEventListener("click", boardHandler);
 
@@ -153,16 +210,6 @@ function turnCards() {
     last2Cards = [];
   });
 }
-/* let lastCard;
-
-function turn(event) {
-  const cards = event.target;
-  if (alt === alt) {
-    aufgedeckt bleiben ;
-  }
-checkDoubles = fail
-  last2Cards = umdrehen;
-}*/
 
 btnNewGame.addEventListener("click", startNewGame);
 
@@ -170,6 +217,7 @@ function startNewGame() {
   imgNameForDoubleCheck = "";
   last2Cards = [];
   playerMadeChoice = false; //refactoring needed ..
+  content();
   const arr = Array.from(boardField.childNodes); //Turn fake Array into true Array
   const divArr = [];
   arr.filter((div) => {
@@ -182,8 +230,8 @@ function startNewGame() {
 }
 function mixingCards(divArr) {
   //div 1-16 mixen
-
-  randomize(divArr);
+  const myArray = randomize(divArr);
+  cleaningArrays(myArray);
 }
 
 function randomize(cardDeck) {
@@ -193,15 +241,9 @@ function randomize(cardDeck) {
   // einfügen der gespeicherten Karte im selben Array
   const maxRandomNumber = cardDeck.length;
 
-  /*   for(let i = 0; i < cardDeck.length; i++){
-    let takeCard = "";
-    takeCard = cardDeck.splice(randomNumber(maxRandomNumber), 0)
-    console.log(takeCard)
-  } */
   let myArray = cardDeck;
-  // console.log(myArray)
-  for(let i = 0; i < maxRandomNumber; i++) {
 
+  for (let i = 0; i < maxRandomNumber; i++) {
     let switchOne = randomizeNumber(maxRandomNumber);
     let switchTwo = randomizeNumber(maxRandomNumber);
 
@@ -210,8 +252,7 @@ function randomize(cardDeck) {
       myArray[switchOne],
     ];
   }
-  cleaningArrays(myArray);
-  // console.log(myArray);
+  return myArray
 }
 
 function randomizeNumber(maxNumber) {
@@ -220,27 +261,25 @@ function randomizeNumber(maxNumber) {
 
 function cleaningArrays(myArray) {
   boardField.textContent = "";
-  for (let i = 0; i < myArray.length; i++){
-    boardField.append(myArray[i])
+  for (let i = 0; i < myArray.length; i++) {
+    boardField.append(myArray[i]);
   }
 }
-/*   
-  const fragement = new DocumentFragment();
-
-  myArray.forEach((div) => {
-    const divEl = document.createElement(div);
-    fragement.append(divEL);
-  })
-  boardField.append(fragement); */
 
 
+function content() {
+  const cardImgArray = document.querySelectorAll("img");
+  let arrayOfImageIndex = 0;
+  console.log(randomize(arrayofHorror))
 
-/* const parent = document.getElementById('parent');
-const childNodesArray = Array.from(parent.childNodes);
-
-const fragment = document.createDocumentFragment();
-for (const node of childNodesArray) {
-  fragment.appendChild(node);
+  for (let i = 0; i < cardImgArray.length; i++) {
+    cardImgArray[i].setAttribute("src", arrayofHorror[arrayOfImageIndex].src);
+    cardImgArray[i].setAttribute("alt", arrayofHorror[arrayOfImageIndex].alt);
+    // Bei jedem geraden (zweiten) Wert erhöhe den Index um 1
+    // Steuert die Karten Pärchen vergabe
+    if( i % 2 ){
+      arrayOfImageIndex++
+    }  
+  }
 }
-
-parent.appendChild(fragment); */
+// btn ~ switch mode ~ css - 2classen  .. js - if class 1 nimm 2 vise versa .. check was es ist und nimm passendedn array 

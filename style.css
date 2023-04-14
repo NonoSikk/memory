@@ -2,10 +2,14 @@
 
 *,
 *:befor,
-*:after,
-:root {
-  margin: 0;
+*:after {
   box-sizing: content-box;
+}
+
+:root {
+  --card-border-color: beige;
+  --card-width: 14rem;
+  --card-height: 13rem;
 }
 
 html,
@@ -19,10 +23,9 @@ body {
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
   align-items: start;
+  margin: 0;
 
-  --card-border-color: beige;
-  --card-width: 15rem;
-  --card-height: 14rem;
+  
 }
 
 .card {
@@ -41,12 +44,15 @@ body {
 } */
 
 .board {
+  margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(4, var(--card-width));
-  gap: 20px 25px;
+  gap: 0.5rem 0.9rem;
   background-image: url(https://assets.epuzzle.info/puzzle/095/337/original.webp);
   background-repeat: no-repeat;
   background-size: cover;
+  justify-items: center;
+  padding: 0.5rem;
 }
 
 h1,
