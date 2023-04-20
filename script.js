@@ -1,4 +1,4 @@
-let arrayOfImages = [
+let cuteArray = [
   {
     src: "https://images.pexels.com/photos/271932/pexels-photo-271932.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     alt: "sleeping_fox",
@@ -77,13 +77,18 @@ let arrayOfImages = [
     alt: "ferret",
   },
 ];
-let cuteMode =
-"https://images.pexels.com/photos/1526410/pexels-photo-1526410.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
-let youSure = [
-  "https://images.pexels.com/photos/3196887/pexels-photo-3196887.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-];
 
-let arrayofHorror = [ 
+const cuteMode = "url(https://assets.epuzzle.info/puzzle/095/337/original.webp)";
+
+
+let playerOne = "https://images.pexels.com/photos/1526410/pexels-photo-1526410.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+
+let playerTwo = "https://images.pexels.com/photos/3196887/pexels-photo-3196887.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+
+document.querySelector(".one").setAttribute("src", playerOne) 
+document.querySelector(".two").setAttribute("src", playerTwo) 
+
+let horrorArray = [ 
   {
     src: "https://p1.pxfuel.com/preview/678/382/320/zombie-horror-undead-monster.jpg",
     alt: "bloddy-mouth",
@@ -135,7 +140,7 @@ let arrayofHorror = [
 ];
 
 let horrorMode = 
-"https://images.pexels.com/photos/673862/pexels-photo-673862.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+"url(https://images.pexels.com/photos/673862/pexels-photo-673862.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)";
 
 // array + dropbox → Thema aussuchen ob tiere oder grusel ,...
 //anzahl der Spieler + punkte → "turn is over...its player x turn"
@@ -149,6 +154,7 @@ const cardback = document.querySelector(".back");
 const cardItem = document.querySelector(".card");
 const cardfront = document.querySelector(".front");
 const btnNewGame = document.querySelector("#reset");
+const themeDropdown = document.querySelector("#theme-dropdown");
 let imgNameForDoubleCheck = "";
 let last2Cards = [];
 let playerMadeChoice = false;
@@ -158,12 +164,22 @@ let playerMadeChoice = false;
 startNewGame()
 // ==== Ende: Area for calling Functions ====
 
+
 boardField.addEventListener("click", boardHandler);
+btnNewGame.addEventListener("click", startNewGame);
+
+themeDropdown.addEventListener("input", startNewGame);
+
+
+const GameBoard = {
+
+};
+
+
 
 function boardHandler(e) {
   if (playerMadeChoice === false) {
     playerMadeChoice = true;
-    console.log(e);
     const cardBackSide = e.target.className;
     const imgElement = e.target.localName;
     const card = e.target.parentElement.classList;
@@ -211,16 +227,17 @@ function turnCards() {
   });
 }
 
-btnNewGame.addEventListener("click", startNewGame);
+
 
 function startNewGame() {
   imgNameForDoubleCheck = "";
   last2Cards = [];
   playerMadeChoice = false; //refactoring needed ..
-  content();
+  themeChoice(); // Load Card Array according to theme Choice
+  
   const arr = Array.from(boardField.childNodes); //Turn fake Array into true Array
   const divArr = [];
-  arr.filter((div) => {
+  arr.filter((div) => { //Fill empty Array with cards of the theme choice
     if (div.nodeName === "DIV") {
       div.classList.remove("turn");
       divArr.push(div);
@@ -228,6 +245,7 @@ function startNewGame() {
   });
   mixingCards(divArr);
 }
+
 function mixingCards(divArr) {
   //div 1-16 mixen
   const myArray = randomize(divArr);
@@ -260,26 +278,62 @@ function randomizeNumber(maxNumber) {
 }
 
 function cleaningArrays(myArray) {
-  boardField.textContent = "";
+  boardField.textloadThemeImages = "";
   for (let i = 0; i < myArray.length; i++) {
     boardField.append(myArray[i]);
   }
 }
 
 
-function content() {
-  const cardImgArray = document.querySelectorAll("img");
-  let arrayOfImageIndex = 0;
-  console.log(randomize(arrayofHorror))
-
+function loadThemeImages(chosenArray) {
+  const cardImgArray = document.querySelectorAll(".board img");
+  let imageIndex = 0;
   for (let i = 0; i < cardImgArray.length; i++) {
-    cardImgArray[i].setAttribute("src", arrayofHorror[arrayOfImageIndex].src);
-    cardImgArray[i].setAttribute("alt", arrayofHorror[arrayOfImageIndex].alt);
+    cardImgArray[i].setAttribute("src", chosenArray[imageIndex].src);
+    cardImgArray[i].setAttribute("alt", chosenArray[imageIndex].alt);
     // Bei jedem geraden (zweiten) Wert erhöhe den Index um 1
     // Steuert die Karten Pärchen vergabe
     if( i % 2 ){
-      arrayOfImageIndex++
+      imageIndex++
     }  
   }
+
 }
 // btn ~ switch mode ~ css - 2classen  .. js - if class 1 nimm 2 vise versa .. check was es ist und nimm passendedn array 
+
+
+
+function themeChoice() {
+  const themeDropdownChoice = themeDropdown.value;
+  let choice = cuteArray
+  switch (themeDropdownChoice) {
+    case 'cute':
+      choice = cuteArray;
+      boardField.style.backgroundImage = cuteMode;
+    break;
+    case 'horror':
+      choice = horrorArray;
+      boardField.style.backgroundImage = horrorMode;
+    break;
+    default:
+  }
+  loadThemeImages(choice);
+}
+
+class Player {
+  points = 0;
+  profilPicture = "Hier könnte dein url Pfad fürs Profil Bild sein";
+  constructor(playerName) {
+    this.playerName = playerName ?? "Humperdinkel"
+  }
+  setPlayerName(newName) {
+    this.playerName = newName;
+  }
+}
+
+
+
+//player auto switch after turn 
+//point counter per player 
+//highlighting current player 
+//player naming
