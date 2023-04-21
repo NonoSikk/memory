@@ -78,17 +78,10 @@ let cuteArray = [
   },
 ];
 
-const cuteMode = "url(https://assets.epuzzle.info/puzzle/095/337/original.webp)";
+const cuteMode =
+  "url(https://assets.epuzzle.info/puzzle/095/337/original.webp)";
 
-
-let playerOne = "https://images.pexels.com/photos/1526410/pexels-photo-1526410.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
-
-let playerTwo = "https://images.pexels.com/photos/3196887/pexels-photo-3196887.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
-
-document.querySelector(".one").setAttribute("src", playerOne) 
-document.querySelector(".two").setAttribute("src", playerTwo) 
-
-let horrorArray = [ 
+let horrorArray = [
   {
     src: "https://p1.pxfuel.com/preview/678/382/320/zombie-horror-undead-monster.jpg",
     alt: "bloddy-mouth",
@@ -139,14 +132,71 @@ let horrorArray = [
   },
 ];
 
-let horrorMode = 
-"url(https://images.pexels.com/photos/673862/pexels-photo-673862.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)";
+let horrorMode =
+  "url(https://images.pexels.com/photos/673862/pexels-photo-673862.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)";
 
-// array + dropbox → Thema aussuchen ob tiere oder grusel ,...
-//anzahl der Spieler + punkte → "turn is over...its player x turn"
-//array rng bilder + rng posi
-// misch btn für nachm match
-//chaos mode, misch btn nach jedem Zug eines spieler
+let animeMode =
+  "url(https://images.squarespace-cdn.com/content/v1/5fe4caeadae61a2f19719512/1610908900242-GVWJSW9UAPUONKXC5I44/13.jpg)";
+
+let animeArray = [
+  {
+    src: "https://wallpapers.com/images/featured/y61kpjindsmr277u.jpg",
+    alt: "juju",
+  },
+  {
+    src: "https://i.pinimg.com/236x/a4/0d/38/a40d3896decc2343b02e9bd19d61e8c8.jpg",
+    alt: "flower",
+  },
+  {
+    src: "https://w0.peakpx.com/wallpaper/977/705/HD-wallpaper-anime-boy-art-thumbnail.jpg",
+    alt: "colourful",
+  },
+  {
+    src: "https://w0.peakpx.com/wallpaper/298/360/HD-wallpaper-neon-anime-electric-blue-magenta.jpg",
+    alt: "beat",
+  },
+  {
+    src: "https://wallpapercave.com/wp/wp5954922.jpg",
+    alt: "bus",
+  },
+  {
+    src: "https://wallpapers.com/images/featured/8jipzf1k9938k6gg.jpg",
+    alt: "cat boy",
+  },
+  {
+    src: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRwhh0qiY64JNtQahBKVDN1SQpTCf-7YzKiLrj8cwlqsZSwajPZ",
+    alt: "evil boy",
+  },
+  {
+    src: "https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700072527.jpg",
+    alt: "veins",
+  },
+  {
+    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWbdvSddEEO3e74CXJ-GuEAOmhAsaRCTzQQA&usqp=CAU",
+    alt: "hacker",
+  },
+  {
+    src: "https://cache.desktopnexus.com/thumbseg/2551/2551851-bigthumbnail.jpg",
+    alt: "cherry blossom",
+  },
+  {
+    src: "",
+    alt: "girl with ears",
+  },
+  {
+    src: "https://i.pinimg.com/600x315/f0/87/0c/f0870c25385f28c6cfc8eb944006604d.jpg",
+    alt: "hot card",
+  },
+  {
+    src: "https://wallpaperwaifu.com/wp-content/uploads/2023/01/aki-hayakawa-chainsaw-man-thumb-360x203.jpg",
+    alt: "schweigefuchs",
+  },
+];
+
+let playerOne =
+  "https://images.pexels.com/photos/1526410/pexels-photo-1526410.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+let playerTwo =
+  "https://images.pexels.com/photos/3196887/pexels-photo-3196887.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
 // ==== Global Variables ====
 const boardField = document.querySelector(".board");
@@ -158,11 +208,9 @@ const themeDropdown = document.querySelector("#theme-dropdown");
 let imgNameForDoubleCheck = "";
 let last2Cards = [];
 let playerMadeChoice = false;
+document.querySelector(".one").setAttribute("src", playerOne);
+document.querySelector(".two").setAttribute("src", playerTwo);
 // ==== End of: Global Variables ====
-
-// ==== Start: Area for calling Functions ====
-startNewGame()
-// ==== Ende: Area for calling Functions ====
 
 
 boardField.addEventListener("click", boardHandler);
@@ -170,12 +218,7 @@ btnNewGame.addEventListener("click", startNewGame);
 
 themeDropdown.addEventListener("input", startNewGame);
 
-
-const GameBoard = {
-
-};
-
-
+const GameBoard = {};
 
 function boardHandler(e) {
   if (playerMadeChoice === false) {
@@ -210,8 +253,11 @@ function checkDoubles(imgName) {
     imgNameForDoubleCheck = "";
     last2Cards = [];
     playerMadeChoice = false;
+    GameManager.turnHandler(); //Found Pair
   } else {
-    imgNameForDoubleCheck = "";
+    imgNameForDoubleCheck = ""; // Not a Pair
+    GameManager.playerTurn = false;
+    GameManager.turnHandler();
     turnCards();
   }
 }
@@ -227,17 +273,16 @@ function turnCards() {
   });
 }
 
-
-
 function startNewGame() {
   imgNameForDoubleCheck = "";
   last2Cards = [];
   playerMadeChoice = false; //refactoring needed ..
   themeChoice(); // Load Card Array according to theme Choice
-  
+
   const arr = Array.from(boardField.childNodes); //Turn fake Array into true Array
   const divArr = [];
-  arr.filter((div) => { //Fill empty Array with cards of the theme choice
+  arr.filter((div) => {
+    //Fill empty Array with cards of the theme choice
     if (div.nodeName === "DIV") {
       div.classList.remove("turn");
       divArr.push(div);
@@ -270,7 +315,7 @@ function randomize(cardDeck) {
       myArray[switchOne],
     ];
   }
-  return myArray
+  return myArray;
 }
 
 function randomizeNumber(maxNumber) {
@@ -284,7 +329,6 @@ function cleaningArrays(myArray) {
   }
 }
 
-
 function loadThemeImages(chosenArray) {
   const cardImgArray = document.querySelectorAll(".board img");
   let imageIndex = 0;
@@ -293,28 +337,29 @@ function loadThemeImages(chosenArray) {
     cardImgArray[i].setAttribute("alt", chosenArray[imageIndex].alt);
     // Bei jedem geraden (zweiten) Wert erhöhe den Index um 1
     // Steuert die Karten Pärchen vergabe
-    if( i % 2 ){
-      imageIndex++
-    }  
+    if (i % 2) {
+      imageIndex++;
+    }
   }
-
 }
-// btn ~ switch mode ~ css - 2classen  .. js - if class 1 nimm 2 vise versa .. check was es ist und nimm passendedn array 
-
-
+// btn ~ switch mode ~ css - 2classen  .. js - if class 1 nimm 2 vise versa .. check was es ist und nimm passendedn array
 
 function themeChoice() {
   const themeDropdownChoice = themeDropdown.value;
-  let choice = cuteArray
+  let choice = cuteArray;
   switch (themeDropdownChoice) {
-    case 'cute':
+    case "cute":
       choice = cuteArray;
       boardField.style.backgroundImage = cuteMode;
-    break;
-    case 'horror':
+      break;
+    case "anime":
+      choice = animeArray;
+      boardField.style.backgroundImage = animeMode;
+      break;
+    case "horror":
       choice = horrorArray;
       boardField.style.backgroundImage = horrorMode;
-    break;
+      break;
     default:
   }
   loadThemeImages(choice);
@@ -323,17 +368,98 @@ function themeChoice() {
 class Player {
   points = 0;
   profilPicture = "Hier könnte dein url Pfad fürs Profil Bild sein";
-  constructor(playerName) {
-    this.playerName = playerName ?? "Humperdinkel"
+
+  constructor(playerNumber, playerName, playerColor) {
+    this.playerNumber = playerNumber;
+    this.playerName = playerName ?? "Humperdinkel";
+    this.playerColor = playerColor;
+    this.setPlayerName();
+    this.setPlayerPoints();
   }
   setPlayerName(newName) {
-    this.playerName = newName;
+    if (newName === "undefined") {
+      this.playerName = newName;
+      console.log("Huhu");
+    }
+    document.querySelector(`.player-name--${this.playerNumber}`).innerHTML =
+      this.playerName;
+  }
+  setPlayerPoints() {
+    document.querySelector(`.player-points--${this.playerNumber}`).innerHTML =
+      this.points;
+  }
+  incresePoint() {
+    this.points++;
+    this.setPlayerPoints();
   }
 }
 
-
-
-//player auto switch after turn 
-//point counter per player 
-//highlighting current player 
+//player auto switch after turn
+//point counter per player
+//highlighting current player
 //player naming
+// array + dropbox → Thema aussuchen ob tiere oder grusel ,...
+//anzahl der Spieler + punkte → "turn is over...its player x turn"
+//array rng bilder + rng posi
+// misch btn für nachm match
+//chaos mode, misch btn nach jedem Zug eines spieler
+//timer
+//api - images, highscore, count of turns..
+//reset point counter
+//points animation
+//player got different border colour 
+// fitting pair gets colour of "player turn" colour
+
+const firstPlayer = new Player("one", "Schwalbenkopf", "aqua");
+const secondPlayer = new Player("two", "Der Überspitze", "hotpink");
+
+const GameManager = {
+  activePlayer: firstPlayer,
+  playerTurn: true,
+  
+
+  turnHandler() {
+    if (this.playerTurn) {
+      this.activePlayer.incresePoint();
+      // console.log(this.playerTurn, this.activePlayer, "You made a point");
+    } else {
+      // console.log(this.playerTurn, this.activePlayer, "You lost your turn");
+      setTimeout(() => {
+        this.toggleHighlight()
+        this.togglePlayer()
+        this.toggleHighlight()
+        this.playerTurn = true;
+      }, 1000)
+    }
+  },
+
+  togglePlayer() {
+    if(this.activePlayer === firstPlayer) {
+      this.activePlayer = secondPlayer;
+    } else {
+      this.activePlayer = firstPlayer;
+    }
+  },
+
+  toggleHighlight() {
+    //  let highlight = false
+
+    const currentPlayer = document.querySelector(`.${this.activePlayer.playerNumber}`)
+    const farbeWechseln = document.querySelector(":root")
+    farbeWechseln.style.setProperty("--player-clr", this.activePlayer.playerColor)
+    currentPlayer.classList.toggle("active-player")
+/*     if (this.playerTurn) {
+      // Player ist an der Reihe und bekommt ein Border
+
+    } else {
+      //wenn spieler nicht dran ist, nimm das highlight weg
+      //  div.classList.remove("border");
+    } */
+  },
+};
+
+
+// ==== Start: Area for calling Functions ====
+startNewGame();
+GameManager.toggleHighlight();
+// ==== Ende: Area for calling Functions ====

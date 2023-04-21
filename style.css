@@ -10,6 +10,7 @@
   --card-border-color: beige;
   --card-width: 14rem;
   --card-height: 13rem;
+  --player-clr: green;
 }
 
 html,
@@ -26,7 +27,7 @@ body {
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
   align-items: start;
-  margin: 0;
+  margin: 0 2rem;
 }
 
 select {
@@ -42,6 +43,7 @@ select {
   border-radius: 5px;
   background-image: linear-gradient(to top, #000000, #6f6f6f 60%);
   box-shadow: 2px 2px 2px 1px rgba(35, 198, 223, 0.2);
+  text-align: center;
 }
 
 select option {
@@ -53,6 +55,9 @@ select option {
 }
 .horror {
   color: red;
+}
+.anime {
+  color: hotpink;
 }
 .placeholder {
   color: aqua;
@@ -136,7 +141,7 @@ button {
   color: aliceblue;
   font-family: "Shadows Into Light", cursive;
   border-radius: 0.7rem;
-  background-color: rgb(52, 51, 51);
+  background-image: linear-gradient(to top, #000000, #6f6f6f 60%);
   box-shadow: 2px 2px 2px 1px rgba(35, 198, 223, 0.2);
 }
 
@@ -146,19 +151,48 @@ button {
 .one {
   height: 90px;
   width: 90px;
-}
-
-.div__two {
-  border-radius: 100%;
-  height: 90px;
-  width: 90px;
-  overflow: hidden;
+  border: 3px solid transparent;
 }
 
 .two {
-  width: 7rem;
-  height: 6rem;
-  border-radius: 0;
+  border-radius: 100%;
+  overflow: hidden;
+  border: 3px solid transparent;
+  width: 90px;
+  height: 90px;
   object-fit: cover; /* resizes the image to fill the container while preserving aspect ratio */
   object-position: 0% 80%; /* centers the image within the container */
+}
+
+.active-player {
+  border: 3px solid var(--player-clr);
+}
+
+.player-profil {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.player-profil p {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.player-profil span {
+  font-size: 2rem;
+}
+
+.test-div {
+  position: relative;
+  margin: 0 auto;
+  width: 3rem;
+  height: 3rem;
+}
+
+.active-span {
+  position: absolute;
+  /* font-size: 3rem!important;  */
+  /* transition: font-size 2s; */
+  color: salmon;
+  
 }
